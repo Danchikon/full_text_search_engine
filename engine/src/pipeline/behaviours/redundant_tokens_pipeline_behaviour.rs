@@ -12,11 +12,11 @@ impl RedundantTokensPipelineBehaviour {
 }
 
 impl PipelineBehaviour for RedundantTokensPipelineBehaviour {
-    fn execute(&self, token: &String) -> Option<String> {
-        if self.redundant_tokens.contains(token) {
+    fn execute(&self, token: String) -> Option<String> {
+        if self.redundant_tokens.contains(&token) {
             None
         } else {
-            Some(token.clone())
+            Some(token)
         }
     }
 }

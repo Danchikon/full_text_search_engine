@@ -9,7 +9,7 @@ impl LowerCasePipelineBehaviour {
 }
 
 impl PipelineBehaviour for LowerCasePipelineBehaviour {
-    fn execute(&self, token: &String) -> Option<String> {
+    fn execute(&self, token: String) -> Option<String> {
         Some(token.to_lowercase())
     }
 }

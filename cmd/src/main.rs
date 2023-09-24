@@ -1,10 +1,12 @@
-use core::{PipelineBehaviour, Pipeline};
-use engine::pipelines::{LowerCasePipelineBehaviour, StemmingPipelineBehaviour, RedundantTokensPipelineBehaviour};
+use core::{prefix_tree::Node, Pipeline, PipelineBehaviour};
+use engine::pipeline::behaviours::{
+    LowerCasePipelineBehaviour, RedundantTokensPipelineBehaviour, StemmingPipelineBehaviour,
+};
 use rust_stemmers::{Algorithm, Stemmer};
 use std::{collections::HashSet, vec};
 
 fn main() {
-    let mut tokens = vec![
+    let tokens = vec![
         String::from("vALUes"),
         "Muck".to_string(),
         "Duck".to_string(),
@@ -24,18 +26,22 @@ fn main() {
     let redundant_tokens = RedundantTokensPipelineBehaviour::new(hash_set);
 
     let behaviours: Vec<Box<dyn PipelineBehaviour>> = vec![
-        Box::new(lower_case), 
-        Box::new(redundant_tokens), 
+        Box::new(lower_case),
+        Box::new(redundant_tokens),
         Box::new(stemming),
-        ];
+    ];
 
     let pipeline = Pipeline::new(behaviours);
 
     let result = tokens
         .iter()
-        .map(|token| pipeline.execute(token))
-        .filter_map(|token| token)
+        .filter_map(|token| pipeline.execute(token.clone()))
         .collect::<HashSet<String>>();
+
+    let mut tree = Node::root();
+
+    tree.insert("value".to_string());
+    tree.insert("var".to_string());
 
     println!("{:?}", result);
 }
