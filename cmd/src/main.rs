@@ -1,4 +1,4 @@
-use core::{prefix_tree::Node, Pipeline, PipelineBehaviour};
+use core::{trie, Pipeline, PipelineBehaviour};
 use engine::pipeline::behaviours::{
     LowerCasePipelineBehaviour, RedundantTokensPipelineBehaviour, StemmingPipelineBehaviour,
 };
@@ -38,10 +38,21 @@ fn main() {
         .filter_map(|token| pipeline.execute(token.clone()))
         .collect::<HashSet<String>>();
 
-    let mut tree = Node::root();
+    let mut tree = trie::Node::root();
 
-    tree.insert("value".to_string());
+    let v = "value".to_string();
+    tree.insert(v);
     tree.insert("var".to_string());
+    tree.insert("val".to_string());
+    tree.insert("swimming".to_string());
+    tree.insert("swap".to_string());
+
+    println!("var - {}", tree.exists(&"var".to_string()));
+    println!("vay - {}", tree.exists(&"vay".to_string()));
+
+    println!("all - {:?}", tree.values());
+    println!("count - {:?}", tree.count());
+    println!("height - {:?}", tree.height());
 
     println!("{:?}", result);
 }

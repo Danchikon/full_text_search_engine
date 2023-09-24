@@ -1,9 +1,9 @@
 mod document;
 mod pipeline;
 mod pipeline_behaviour;
-pub mod prefix_tree;
 mod token;
 mod tokenizer;
+pub mod trie;
 
 pub use document::*;
 pub use pipeline::*;
