@@ -1,17 +1,17 @@
-use core::PipelineBehaviour;
+use core::pipeline::Behaviour;
 use std::collections::HashSet;
 
-pub struct RedundantTokensPipelineBehaviour {
+pub struct RedundantTokensBehaviour {
     redundant_tokens: HashSet<String>,
 }
 
-impl RedundantTokensPipelineBehaviour {
+impl RedundantTokensBehaviour {
     pub fn new(redundant_tokens: HashSet<String>) -> Self {
-        RedundantTokensPipelineBehaviour { redundant_tokens }
+        RedundantTokensBehaviour { redundant_tokens }
     }
 }
 
-impl PipelineBehaviour for RedundantTokensPipelineBehaviour {
+impl Behaviour for RedundantTokensBehaviour {
     fn execute(&self, token: String) -> Option<String> {
         if self.redundant_tokens.contains(&token) {
             None
