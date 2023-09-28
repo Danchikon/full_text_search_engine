@@ -1,24 +1,5 @@
-use crate::PipelineBehaviour;
+mod behaviour;
+mod pipeline;
 
-pub struct Pipeline {
-    behaviours: Vec<Box<dyn PipelineBehaviour>>,
-}
-
-impl Pipeline {
-    pub fn new(behaviours: Vec<Box<dyn PipelineBehaviour>>) -> Self {
-        Pipeline { behaviours }
-    }
-
-    pub fn execute(&self, token: String) -> Option<String> {
-        let mut result = Some(token);
-
-        for behaviour in self.behaviours.iter() {
-            result = match result {
-                Some(value) => behaviour.execute(value),
-                None => None,
-            };
-        }
-
-        result
-    }
-}
+pub use behaviour::*;
+pub use pipeline::*;
