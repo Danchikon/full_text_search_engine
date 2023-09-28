@@ -1,7 +1,7 @@
 use crate::PipelineBehaviour;
 
 pub struct Pipeline {
-    behaviours: Vec<Box<dyn PipelineBehaviour>>
+    behaviours: Vec<Box<dyn PipelineBehaviour>>,
 }
 
 impl Pipeline {
@@ -9,13 +9,13 @@ impl Pipeline {
         Pipeline { behaviours }
     }
 
-    pub fn execute(&self, token: &String) -> Option<String> {
-        let mut result = Some(token.clone());
+    pub fn execute(&self, token: String) -> Option<String> {
+        let mut result = Some(token);
 
         for behaviour in self.behaviours.iter() {
             result = match result {
-                Some(value) => behaviour.execute(&value),
-                None => None
+                Some(value) => behaviour.execute(value),
+                None => None,
             };
         }
 

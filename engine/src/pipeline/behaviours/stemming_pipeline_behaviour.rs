@@ -13,7 +13,7 @@ impl StemmingPipelineBehaviour {
 }
 
 impl PipelineBehaviour for StemmingPipelineBehaviour {
-    fn execute(&self, token: &String) -> Option<String> {
-        Some(self.stemmer.stem(token).to_string())
+    fn execute(&self, token: String) -> Option<String> {
+        Some(self.stemmer.stem(&token).to_string())
     }
 }
