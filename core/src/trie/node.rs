@@ -88,6 +88,10 @@ impl Node {
         height + 1
     }
 
+    pub fn child(&self, key: &char) -> Option<&Node> {
+        self.children.get(key)
+    }
+
     pub fn values(&self) -> Vec<String> {
         let mut values = Vec::<String>::new();
 
@@ -122,3 +126,4 @@ impl Node {
         current.is_some_and(|node| node.is_value())
     }
 }
+
